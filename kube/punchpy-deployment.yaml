@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: applications
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: applications
+      labels:
+        app: applications
+    spec:
+      hostname: applications
+      containers:
+      - name: applications
+        image: us.gcr.io/theecheck-web/applications-service:2
+        ports:
+        - containerPort: 80
+          name: web
+        envFrom:
+        - configMapRef:
+            name: environment-config
