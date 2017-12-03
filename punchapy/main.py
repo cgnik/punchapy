@@ -47,9 +47,5 @@ def punch_update(pid):
     abort(400)
 
 
-def scrub(punch):
-    return {k: punch[k] for k in punch.keys() - ['_id']}
-
-
 if __name__ == '__main__':
     app.run('0.0.0.0', int(environ.get('SERVER_PORT') or '8080'))
