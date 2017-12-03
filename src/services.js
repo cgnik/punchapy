@@ -1,25 +1,14 @@
-import ApiBase from './api-base.js';
+const fetch = require('isomorphic-fetch');
 
-const endPoints = {
-   "keypress": {
-      "path": "/keypress/{key}",
-      "method": "POST"
-   },
-   "query": {
-      "apps": {
-         "path": "/query/apps",
-         "method": "GET"
-      },
-      "activeApp": {
-         "path": "/query/apps",
-         "method": "GET"
-      }
+const baseUrl = "/api/punch";
+export default class PunchApi {
+   constructor() {
    }
-};
 
-export default class RokuApi extends ApiBase {
-   constructor(props) {
-      props['endPoints'] = endPoints;
-      super(props);
+   listPunches() {
+      console.log(baseUrl);
+      return fetch(baseUrl, {
+         credentials: 'include'
+      }).then(r => r.json());
    }
 }
