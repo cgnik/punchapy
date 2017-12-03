@@ -19983,14 +19983,12 @@ var App = function (_Component) {
                      'Down'
                   )
                ),
-               this.state.punches.map(function (p) {
-                  return _react2.default.createElement(_Punch2.default, { key: p.timestamp, data: p });
-               })
+               _react2.default.createElement(_Punch2.default, { punches: this.state.punches })
             ),
-            this.state.punches.map(function (e) {
+            this.state.errors.map(function (e, i) {
                return _react2.default.createElement(
                   'div',
-                  { className: 'error' },
+                  { key: 'error' + i, className: 'error' },
                   e
                );
             })
@@ -25635,12 +25633,15 @@ exports.default = Toast;
 Object.defineProperty(exports, "__esModule", {
    value: true
 });
+exports.Punch = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactMaterialize = __webpack_require__(51);
 
 __webpack_require__(93);
 
@@ -25652,29 +25653,86 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Punch = function (_Component) {
-   _inherits(Punch, _Component);
+var Punches = function (_Component) {
+   _inherits(Punches, _Component);
+
+   function Punches() {
+      _classCallCheck(this, Punches);
+
+      return _possibleConstructorReturn(this, (Punches.__proto__ || Object.getPrototypeOf(Punches)).apply(this, arguments));
+   }
+
+   _createClass(Punches, [{
+      key: 'render',
+      value: function render() {
+         return _react2.default.createElement(
+            'div',
+            { className: 'Punches' },
+            _react2.default.createElement(
+               _reactMaterialize.Table,
+               null,
+               _react2.default.createElement(
+                  'thead',
+                  null,
+                  _react2.default.createElement(
+                     'tr',
+                     null,
+                     _react2.default.createElement(
+                        'th',
+                        null,
+                        'Punch Id'
+                     ),
+                     _react2.default.createElement(
+                        'th',
+                        null,
+                        'Timestamp'
+                     )
+                  )
+               ),
+               _react2.default.createElement(
+                  'tbody',
+                  null,
+                  this.props.punches.map(function (p) {
+                     return _react2.default.createElement(Punch, { data: p, key: p.pid });
+                  })
+               )
+            )
+         );
+      }
+   }]);
+
+   return Punches;
+}(_react.Component);
+
+exports.default = Punches;
+
+var Punch = exports.Punch = function (_Component2) {
+   _inherits(Punch, _Component2);
 
    function Punch(props) {
       _classCallCheck(this, Punch);
 
-      var _this = _possibleConstructorReturn(this, (Punch.__proto__ || Object.getPrototypeOf(Punch)).call(this, props));
+      var _this2 = _possibleConstructorReturn(this, (Punch.__proto__ || Object.getPrototypeOf(Punch)).call(this, props));
 
-      _this.state = { date: new Date(props.data.timestamp) };
-      return _this;
+      _this2.state = { pid: props.data.pid, date: props.data.timestamp };
+      return _this2;
    }
 
    _createClass(Punch, [{
       key: 'render',
       value: function render() {
          return _react2.default.createElement(
-            'div',
-            { className: 'Punch' },
+            'tr',
+            null,
             _react2.default.createElement(
-               'div',
+               'td',
                null,
-               'PUNCH: ',
-               this.state.date.toISOString()
+               this.state.pid
+            ),
+            _react2.default.createElement(
+               'td',
+               null,
+               this.state.date
             )
          );
       }
@@ -25682,8 +25740,6 @@ var Punch = function (_Component) {
 
    return Punch;
 }(_react.Component);
-
-exports.default = Punch;
 
 /***/ }),
 /* 93 */
@@ -25725,7 +25781,7 @@ exports = module.exports = __webpack_require__(24)(undefined);
 
 
 // module
-exports.push([module.i, ".Punch {\n  background-color: greenyellow; }\n", ""]);
+exports.push([module.i, ".Punches {\n  width: 80%;\n  margin: auto;\n  padding: 10px; }\n", ""]);
 
 // exports
 

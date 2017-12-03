@@ -3,7 +3,7 @@ import {Row, Button} from 'react-materialize';
 
 import './App.css';
 import PunchApi from './services.js';
-import Punch from './Punch.js';
+import Punches from './Punch.js';
 
 export default class App extends Component {
    constructor(props) {
@@ -35,9 +35,9 @@ export default class App extends Component {
                <Row>
                   <Button onClick={c => this.key('down')}>Down</Button>
                </Row>
-               {this.state.punches.map(p => (<Punch key={p.timestamp} data={p}/>))}
+               <Punches punches={this.state.punches}/>
             </div>
-            {this.state.punches.map(e => (<div className="error">{e}</div>))}
+            {this.state.errors.map((e, i) => (<div key={'error' + i} className="error">{e}</div>))}
          </div>
       );
    }
