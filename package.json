@@ -1,0 +1,21 @@
+{
+  "name": "pyroku",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-materialize": "^1.1.0",
+    "react-scripts": "^1.0.14",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "latest",
+    "node-sass": "latest",
+    "sass-loader": "latest",
+    "webpack": "latest"
+  },
+  "scripts": {
+    "dev": "webpack --watch"
+  }
+}
