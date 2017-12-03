@@ -1,6 +1,8 @@
 from os import environ
-from flask import Flask, send_from_directory, request, jsonify
+from flask import Flask, send_from_directory, request, jsonify, abort
 from flask_pymongo import PyMongo
+from pymongo import ReturnDocument
+from uuid import uuid1
 
 from punchapy import MongoJSONEncoder
 
@@ -19,18 +21,34 @@ def root():
 
 @app.route('/punch', methods=['GET'])
 def punch_list():
-    return jsonify([{"_id": str(p["_id"]), "timestamp": p["timestamp"]} for p in mongo.db.punch.find()])
+    return jsonify([d for d in mongo.db.punch.find(projection={"_id": False})])
 
 
 @app.route('/punch/<pid>', methods=['GET'])
 def punch_get(pid):
-    derp = mongo.db.punch.find({'_id': pid})
-    return jsonify([{"id": str(d['_id']), "timestamp": d["timestamp"]} for d in derp])
+    return jsonify(mongo.db.punch.find_one_or_404({'pid': pid}, projection={"_id": False}))
 
 
 @app.route('/punch', methods=['POST'])
 def punch_save():
-    return jsonify(mongo.db.punch.insert(request.json))
+    return punch_update(str(uuid1()))
+
+
+@app.route('/punch/<pid>', methods=['PUT'])
+def punch_update(pid):
+    punch_in = request.json
+    if pid and punch_in:
+        return jsonify(mongo.db.punch.find_one_and_update(
+            {'pid': pid},
+            {"$set": punch_in},
+            upsert=True,
+            projection={"_id": False},
+            return_document=ReturnDocument.AFTER))
+    abort(400)
+
+
+def scrub(punch):
+    return {k: punch[k] for k in punch.keys() - ['_id']}
 
 
 if __name__ == '__main__':
