@@ -2,6 +2,8 @@ from os import environ
 from flask import Flask, send_from_directory, request, jsonify
 from flask_pymongo import PyMongo
 
+from punchapy import MongoJSONEncoder
+
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'punch'
 app.config['MONGO_URI'] = "mongodb://{}/punch".format(environ.get('MONGO_HOST') or "localhost:27017")

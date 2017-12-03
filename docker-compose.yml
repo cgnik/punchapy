@@ -26,8 +26,8 @@ services:
       - PYTHONPATH=$PYTHONPATH:/usr/src/
     volumes:
       - ./requirements.txt:/requirements.txt
-      - ./server:/usr/src/server
-    command: bash -c "pip install -r /requirements.txt && cd /usr/src/ && python server/main.py"
+      - ./punchapy:/usr/src/punchapy
+    command: bash -c "pip install -r /requirements.txt && cd /usr/src/ && python punchapy/main.py"
     links:
       - punchdb
   punchdb:
