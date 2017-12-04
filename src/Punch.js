@@ -1,22 +1,12 @@
 import React, {Component} from 'react';
-import {Table} from 'react-materialize';
+import {Card} from 'react-materialize';
 import './Punch.css';
 
 export default class Punches extends Component {
    render() {
       return (
          <div className="Punches">
-            <Table>
-               <thead>
-               <tr>
-                  <th>Punch Id</th>
-                  <th>Timestamp</th>
-               </tr>
-               </thead>
-               <tbody>
-               {this.props.punches.map(p => <Punch data={p} key={p.pid}/>)}
-               </tbody>
-            </Table>
+            {this.props.punches.map(p => <Punch data={p} key={p.pid}/>)}
          </div>
       )
    }
@@ -30,10 +20,10 @@ export class Punch extends Component {
 
    render() {
       return (
-         <tr>
-            <td>{this.state.pid}</td>
-            <td>{this.state.date.toDateString()}</td>
-         </tr>
+         <Card>
+            <p className="PunchId">{this.state.pid}</p>
+            <p className="PunchTimestamp">{this.state.date.toDateString()}</p>
+         </Card>
       );
    }
 }

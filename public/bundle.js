@@ -20170,8 +20170,8 @@ var App = function (_Component) {
 
       var p = props || {};
       _this.state = {
-         baseUrl: p['baseUrl'] || "http://localhost:8060",
-         logo: p['logo'] || "logo.jpeg",
+         baseUrl: p['baseUrl'] || "",
+         logo: p['logo'] || "logo.png",
          punches: [],
          errors: []
       };
@@ -20210,6 +20210,9 @@ var App = function (_Component) {
          return _react2.default.createElement(
             'div',
             { className: 'App' },
+            _react2.default.createElement(_reactMaterialize.Button, { floating: true, large: true, className: 'red', waves: 'light', icon: 'add', style: { position: 'fixed', bottom: '24px', right: '8px' }, onClick: function onClick(e) {
+                  return _this4.punch();
+               } }),
             _react2.default.createElement(
                'header',
                { className: 'App-header' },
@@ -20218,17 +20221,6 @@ var App = function (_Component) {
             _react2.default.createElement(
                'div',
                { className: 'App-intro' },
-               _react2.default.createElement(
-                  _reactMaterialize.Row,
-                  null,
-                  _react2.default.createElement(
-                     _reactMaterialize.Button,
-                     { onClick: function onClick(e) {
-                           return _this4.punch();
-                        } },
-                     'Punch!'
-                  )
-               ),
                _react2.default.createElement(_Punch2.default, { punches: this.state.punches })
             ),
             this.state.errors.map(function (e, i) {
@@ -25109,7 +25101,7 @@ exports = module.exports = __webpack_require__(15)(undefined);
 
 
 // module
-exports.push([module.i, ".App {\n  text-align: center; }\n\n.App-logo {\n  height: 80px; }\n\n.App-header {\n  background-color: #222;\n  height: 150px;\n  padding: 20px;\n  color: white; }\n\n.App-title {\n  font-size: 1.5em; }\n\n.App-intro {\n  font-size: large; }\n", ""]);
+exports.push([module.i, ".App {\n  text-align: center; }\n\n.App-logo {\n  height: 80px; }\n\n.App-header {\n  background-color: #222;\n  height: 100px;\n  padding: 14px;\n  color: white; }\n\n.App-title {\n  font-size: 1.5em; }\n\n.App-intro {\n  font-size: large; }\n", ""]);
 
 // exports
 
@@ -25690,35 +25682,9 @@ var Punches = function (_Component) {
          return _react2.default.createElement(
             'div',
             { className: 'Punches' },
-            _react2.default.createElement(
-               _reactMaterialize.Table,
-               null,
-               _react2.default.createElement(
-                  'thead',
-                  null,
-                  _react2.default.createElement(
-                     'tr',
-                     null,
-                     _react2.default.createElement(
-                        'th',
-                        null,
-                        'Punch Id'
-                     ),
-                     _react2.default.createElement(
-                        'th',
-                        null,
-                        'Timestamp'
-                     )
-                  )
-               ),
-               _react2.default.createElement(
-                  'tbody',
-                  null,
-                  this.props.punches.map(function (p) {
-                     return _react2.default.createElement(Punch, { data: p, key: p.pid });
-                  })
-               )
-            )
+            this.props.punches.map(function (p) {
+               return _react2.default.createElement(Punch, { data: p, key: p.pid });
+            })
          );
       }
    }]);
@@ -25744,16 +25710,16 @@ var Punch = exports.Punch = function (_Component2) {
       key: 'render',
       value: function render() {
          return _react2.default.createElement(
-            'tr',
+            _reactMaterialize.Card,
             null,
             _react2.default.createElement(
-               'td',
-               null,
+               'p',
+               { className: 'PunchId' },
                this.state.pid
             ),
             _react2.default.createElement(
-               'td',
-               null,
+               'p',
+               { className: 'PunchTimestamp' },
                this.state.date.toDateString()
             )
          );
@@ -25803,7 +25769,7 @@ exports = module.exports = __webpack_require__(15)(undefined);
 
 
 // module
-exports.push([module.i, ".Punches {\n  width: 80%;\n  margin: auto;\n  padding: 10px; }\n", ""]);
+exports.push([module.i, ".Punches {\n  width: 80%;\n  margin: auto;\n  padding: 10px; }\n\n.PunchId {\n  font-size: .65em; }\n", ""]);
 
 // exports
 

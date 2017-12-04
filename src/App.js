@@ -10,8 +10,8 @@ export default class App extends Component {
       super(props);
       const p = props || {};
       this.state = {
-         baseUrl: p['baseUrl'] || "http://localhost:8060",
-         logo: p['logo'] || "logo.jpeg",
+         baseUrl: p['baseUrl'] || "",
+         logo: p['logo'] || "logo.png",
          punches: [],
          errors: []
       }
@@ -34,13 +34,11 @@ export default class App extends Component {
    render() {
       return (
          <div className="App">
+            <Button floating large className='red' waves='light' icon='add' style={{position: 'fixed', bottom: '24px', right: '8px'}} onClick={e => this.punch()}/>
             <header className="App-header">
                <img src={this.state.logo} className="App-logo" alt="logo"/>
             </header>
             <div className="App-intro">
-               <Row>
-                  <Button onClick={e => this.punch()}>Punch!</Button>
-               </Row>
                <Punches punches={this.state.punches}/>
             </div>
             {this.state.errors.map((e, i) => (<div key={'error' + i} className="error">{e}</div>))}
