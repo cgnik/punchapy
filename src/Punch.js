@@ -25,14 +25,14 @@ export default class Punches extends Component {
 export class Punch extends Component {
    constructor(props) {
       super(props);
-      this.state = {pid: props.data.pid, date: props.data.timestamp};
+      this.state = {pid: props.data.pid, date: new Date(props.data.timestamp)};
    }
 
    render() {
       return (
          <tr>
             <td>{this.state.pid}</td>
-            <td>{this.state.date}</td>
+            <td>{this.state.date.toDateString()}</td>
          </tr>
       );
    }

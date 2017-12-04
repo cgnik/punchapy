@@ -20188,13 +20188,24 @@ var App = function (_Component) {
          this.punchapi.listPunches().then(function (pl) {
             return _this2.setState({ punches: pl || [] });
          }).catch(function (e) {
-            return _this2.state.errors.append(e);
+            return _this2.state.errors.push(e);
+         });
+      }
+   }, {
+      key: 'punch',
+      value: function punch() {
+         var _this3 = this;
+
+         this.punchapi.newPunch({ timestamp: new Date().toISOString() }).then(function (x) {
+            return _this3.refresh();
+         }).catch(function (e) {
+            return _this3.state.errors.push(e);
          });
       }
    }, {
       key: 'render',
       value: function render() {
-         var _this3 = this;
+         var _this4 = this;
 
          return _react2.default.createElement(
             'div',
@@ -20212,10 +20223,10 @@ var App = function (_Component) {
                   null,
                   _react2.default.createElement(
                      _reactMaterialize.Button,
-                     { onClick: function onClick(c) {
-                           return _this3.key('down');
+                     { onClick: function onClick(e) {
+                           return _this4.punch();
                         } },
-                     'Down'
+                     'Punch!'
                   )
                ),
                _react2.default.createElement(_Punch2.default, { punches: this.state.punches })
@@ -25128,9 +25139,20 @@ var PunchApi = function () {
    }
 
    _createClass(PunchApi, [{
-      key: 'listPunches',
+      key: "newPunch",
+      value: function newPunch(punch) {
+         return fetch(baseUrl, {
+            method: "POST",
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(punch)
+         }).then(function (r) {
+            return r.json();
+         });
+      }
+   }, {
+      key: "listPunches",
       value: function listPunches() {
-         console.log(baseUrl);
          return fetch(baseUrl, {
             credentials: 'include'
          }).then(function (r) {
@@ -25714,7 +25736,7 @@ var Punch = exports.Punch = function (_Component2) {
 
       var _this2 = _possibleConstructorReturn(this, (Punch.__proto__ || Object.getPrototypeOf(Punch)).call(this, props));
 
-      _this2.state = { pid: props.data.pid, date: props.data.timestamp };
+      _this2.state = { pid: props.data.pid, date: new Date(props.data.timestamp) };
       return _this2;
    }
 
@@ -25732,7 +25754,7 @@ var Punch = exports.Punch = function (_Component2) {
             _react2.default.createElement(
                'td',
                null,
-               this.state.date
+               this.state.date.toDateString()
             )
          );
       }

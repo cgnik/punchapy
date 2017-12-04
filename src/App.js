@@ -22,7 +22,13 @@ export default class App extends Component {
    refresh() {
       this.punchapi.listPunches()
          .then(pl => this.setState({punches: pl || []}))
-         .catch(e => this.state.errors.append(e));
+         .catch(e => this.state.errors.push(e));
+   }
+
+   punch() {
+      this.punchapi.newPunch({timestamp: (new Date()).toISOString()})
+         .then(x => this.refresh())
+         .catch(e => this.state.errors.push(e));
    }
 
    render() {
@@ -33,7 +39,7 @@ export default class App extends Component {
             </header>
             <div className="App-intro">
                <Row>
-                  <Button onClick={c => this.key('down')}>Down</Button>
+                  <Button onClick={e => this.punch()}>Punch!</Button>
                </Row>
                <Punches punches={this.state.punches}/>
             </div>

@@ -5,8 +5,16 @@ export default class PunchApi {
    constructor() {
    }
 
+   newPunch(punch) {
+      return fetch(baseUrl, {
+         method: "POST",
+         credentials: 'include',
+         headers: {'Content-Type': 'application/json'},
+         body: JSON.stringify(punch)
+      }).then(r => r.json());
+   }
+
    listPunches() {
-      console.log(baseUrl);
       return fetch(baseUrl, {
          credentials: 'include'
       }).then(r => r.json());
