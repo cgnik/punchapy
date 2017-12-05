@@ -1,9 +1,20 @@
 .Punches {
-  width: 80%;
-  margin: auto;
-  padding: 10px;
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+}
+
+.Punch {
+    display: flex;
+    flex-direction: row;
 }
 
 .PunchId {
-  font-size: .65em;
+    font-size: .65em;
+    clear: right;
+}
+
+.PunchTimestamp {
+    text-align: left;
+    alignment: left;
 }

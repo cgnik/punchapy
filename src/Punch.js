@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card} from 'react-materialize';
+import {Card, Button} from 'react-materialize';
 import './Punch.css';
 
 export default class Punches extends Component {
@@ -18,11 +18,16 @@ export class Punch extends Component {
       this.state = {pid: props.data.pid, date: new Date(props.data.timestamp)};
    }
 
+   delete() {
+      console.log("Delete " + this.state.pid);
+   }
+
    render() {
       return (
-         <Card>
-            <p className="PunchId">{this.state.pid}</p>
-            <p className="PunchTimestamp">{this.state.date.toDateString()}</p>
+         <Card className="Punch">
+            <div>{this.state.date.toLocaleTimeString()}</div>
+            <Button floating small className='blue' waves='light' icon='delete'
+                    onClick={e => this.delete()}/>
          </Card>
       );
    }

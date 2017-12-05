@@ -25707,21 +25707,27 @@ var Punch = exports.Punch = function (_Component2) {
    }
 
    _createClass(Punch, [{
+      key: 'delete',
+      value: function _delete() {
+         console.log("Delete " + this.state.pid);
+      }
+   }, {
       key: 'render',
       value: function render() {
+         var _this3 = this;
+
          return _react2.default.createElement(
             _reactMaterialize.Card,
-            null,
+            { className: 'Punch' },
             _react2.default.createElement(
-               'p',
-               { className: 'PunchId' },
-               this.state.pid
+               'div',
+               null,
+               this.state.date.toLocaleTimeString()
             ),
-            _react2.default.createElement(
-               'p',
-               { className: 'PunchTimestamp' },
-               this.state.date.toDateString()
-            )
+            _react2.default.createElement(_reactMaterialize.Button, { floating: true, small: true, className: 'blue', waves: 'light', icon: 'delete',
+               onClick: function onClick(e) {
+                  return _this3.delete();
+               } })
          );
       }
    }]);
@@ -25769,7 +25775,7 @@ exports = module.exports = __webpack_require__(15)(undefined);
 
 
 // module
-exports.push([module.i, ".Punches {\n  width: 80%;\n  margin: auto;\n  padding: 10px; }\n\n.PunchId {\n  font-size: .65em; }\n", ""]);
+exports.push([module.i, ".Punches {\n  width: 80%;\n  margin: auto;\n  padding: 10px; }\n\n.Punch {\n  display: flex;\n  flex-direction: row; }\n\n.PunchId {\n  font-size: .65em;\n  clear: right; }\n\n.PunchTimestamp {\n  text-align: left;\n  alignment: left; }\n", ""]);
 
 // exports
 
