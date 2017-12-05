@@ -29,6 +29,12 @@ def punch_get(pid):
     return jsonify(mongo.db.punch.find_one_or_404({'pid': pid}, projection={"_id": False}))
 
 
+@app.route('/punch/<pid>', methods=['DELETE'])
+def punch_remove(pid):
+    result = mongo.db.punch.delete_one({'pid': pid})
+    return jsonify({'deleted': result.acknowledged and result.deleted_count > 0})
+
+
 @app.route('/punch', methods=['POST'])
 def punch_save():
     return punch_update(str(uuid1()))
