@@ -31,15 +31,22 @@ export default class App extends Component {
          .catch(e => this.state.errors.push(e));
    }
 
+   deletePunch(punchId) {
+      this.punchapi.deletePunch(punchId)
+         .then(e => this.refresh())
+         .catch(e => this.state.errors.push(e));
+   }
+
    render() {
       return (
          <div className="App">
-            <Button floating large className='red' waves='light' icon='add' style={{position: 'fixed', bottom: '24px', right: '8px'}} onClick={e => this.punch()}/>
+            <Button floating large className='red' waves='light' icon='add'
+                    style={{position: 'fixed', bottom: '24px', right: '8px'}} onClick={e => this.punch()}/>
             <header className="App-header">
                <img src={this.state.logo} className="App-logo" alt="logo"/>
             </header>
             <div className="App-intro">
-               <Punches punches={this.state.punches}/>
+               <Punches punches={this.state.punches} deletePunch={punchId => this.deletePunch(punchId)}/>
             </div>
             {this.state.errors.map((e, i) => (<div key={'error' + i} className="error">{e}</div>))}
          </div>

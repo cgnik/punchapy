@@ -5,8 +5,14 @@
 }
 
 .Punch {
-    display: flex;
     flex-direction: row;
+    display: flex;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.Punch button {
+    right: 0px;
 }
 
 .PunchId {
@@ -15,6 +21,7 @@
 }
 
 .PunchTimestamp {
+    height: 100%;
     text-align: left;
     alignment: left;
 }

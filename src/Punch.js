@@ -6,7 +6,9 @@ export default class Punches extends Component {
    render() {
       return (
          <div className="Punches">
-            {this.props.punches.map(p => <Punch data={p} key={p.pid}/>)}
+            {this.props.punches.map(p =>
+               <Punch data={p} key={p.pid} deletePunch={this.props.deletePunch}/>
+            )}
          </div>
       )
    }
@@ -18,16 +20,12 @@ export class Punch extends Component {
       this.state = {pid: props.data.pid, date: new Date(props.data.timestamp)};
    }
 
-   delete() {
-      console.log("Delete " + this.state.pid);
-   }
-
    render() {
       return (
          <Card className="Punch">
-            <div>{this.state.date.toLocaleTimeString()}</div>
-            <Button floating small className='blue' waves='light' icon='delete'
-                    onClick={e => this.delete()}/>
+            <span>{this.state.date.toLocaleTimeString()}</span>
+            <Button floating className="blue" waves="light" icon="delete"
+                    onClick={this.props.deletePunch(this.state.pid)}/>
          </Card>
       );
    }

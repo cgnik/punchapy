@@ -20203,15 +20203,27 @@ var App = function (_Component) {
          });
       }
    }, {
+      key: 'deletePunch',
+      value: function deletePunch(punchId) {
+         var _this4 = this;
+
+         this.punchapi.deletePunch(punchId).then(function (e) {
+            return _this4.refresh();
+         }).catch(function (e) {
+            return _this4.state.errors.push(e);
+         });
+      }
+   }, {
       key: 'render',
       value: function render() {
-         var _this4 = this;
+         var _this5 = this;
 
          return _react2.default.createElement(
             'div',
             { className: 'App' },
-            _react2.default.createElement(_reactMaterialize.Button, { floating: true, large: true, className: 'red', waves: 'light', icon: 'add', style: { position: 'fixed', bottom: '24px', right: '8px' }, onClick: function onClick(e) {
-                  return _this4.punch();
+            _react2.default.createElement(_reactMaterialize.Button, { floating: true, large: true, className: 'red', waves: 'light', icon: 'add',
+               style: { position: 'fixed', bottom: '24px', right: '8px' }, onClick: function onClick(e) {
+                  return _this5.punch();
                } }),
             _react2.default.createElement(
                'header',
@@ -20221,7 +20233,9 @@ var App = function (_Component) {
             _react2.default.createElement(
                'div',
                { className: 'App-intro' },
-               _react2.default.createElement(_Punch2.default, { punches: this.state.punches })
+               _react2.default.createElement(_Punch2.default, { punches: this.state.punches, deletePunch: function deletePunch(punchId) {
+                     return _this5.deletePunch(punchId);
+                  } })
             ),
             this.state.errors.map(function (e, i) {
                return _react2.default.createElement(
@@ -25143,6 +25157,17 @@ var PunchApi = function () {
          });
       }
    }, {
+      key: "deletePunch",
+      value: function deletePunch(punchId) {
+         return fetch(baseUrl + "/" + punchId, {
+            method: "DELETE",
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' }
+         }).then(function (r) {
+            return r.json();
+         });
+      }
+   }, {
       key: "listPunches",
       value: function listPunches() {
          return fetch(baseUrl, {
@@ -25679,11 +25704,13 @@ var Punches = function (_Component) {
    _createClass(Punches, [{
       key: 'render',
       value: function render() {
+         var _this2 = this;
+
          return _react2.default.createElement(
             'div',
             { className: 'Punches' },
             this.props.punches.map(function (p) {
-               return _react2.default.createElement(Punch, { data: p, key: p.pid });
+               return _react2.default.createElement(Punch, { data: p, key: p.pid, deletePunch: _this2.props.deletePunch });
             })
          );
       }
@@ -25700,34 +25727,25 @@ var Punch = exports.Punch = function (_Component2) {
    function Punch(props) {
       _classCallCheck(this, Punch);
 
-      var _this2 = _possibleConstructorReturn(this, (Punch.__proto__ || Object.getPrototypeOf(Punch)).call(this, props));
+      var _this3 = _possibleConstructorReturn(this, (Punch.__proto__ || Object.getPrototypeOf(Punch)).call(this, props));
 
-      _this2.state = { pid: props.data.pid, date: new Date(props.data.timestamp) };
-      return _this2;
+      _this3.state = { pid: props.data.pid, date: new Date(props.data.timestamp) };
+      return _this3;
    }
 
    _createClass(Punch, [{
-      key: 'delete',
-      value: function _delete() {
-         console.log("Delete " + this.state.pid);
-      }
-   }, {
       key: 'render',
       value: function render() {
-         var _this3 = this;
-
          return _react2.default.createElement(
             _reactMaterialize.Card,
             { className: 'Punch' },
             _react2.default.createElement(
-               'div',
+               'span',
                null,
                this.state.date.toLocaleTimeString()
             ),
-            _react2.default.createElement(_reactMaterialize.Button, { floating: true, small: true, className: 'blue', waves: 'light', icon: 'delete',
-               onClick: function onClick(e) {
-                  return _this3.delete();
-               } })
+            _react2.default.createElement(_reactMaterialize.Button, { floating: true, className: 'blue', waves: 'light', icon: 'delete',
+               onClick: this.props.deletePunch(this.state.pid) })
          );
       }
    }]);
@@ -25775,7 +25793,7 @@ exports = module.exports = __webpack_require__(15)(undefined);
 
 
 // module
-exports.push([module.i, ".Punches {\n  width: 80%;\n  margin: auto;\n  padding: 10px; }\n\n.Punch {\n  display: flex;\n  flex-direction: row; }\n\n.PunchId {\n  font-size: .65em;\n  clear: right; }\n\n.PunchTimestamp {\n  text-align: left;\n  alignment: left; }\n", ""]);
+exports.push([module.i, ".Punches {\n  width: 80%;\n  margin: auto;\n  padding: 10px; }\n\n.Punch {\n  flex-direction: row;\n  display: flex;\n  vertical-align: middle;\n  width: 100%; }\n\n.Punch button {\n  right: 0px; }\n\n.PunchId {\n  font-size: .65em;\n  clear: right; }\n\n.PunchTimestamp {\n  height: 100%;\n  text-align: left;\n  alignment: left; }\n", ""]);
 
 // exports
 
