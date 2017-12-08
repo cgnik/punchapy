@@ -25,7 +25,7 @@ export class Punch extends Component {
          <Card className="Punch">
             <span>{this.state.date.toLocaleTimeString()}</span>
             <Button floating className="blue" waves="light" icon="delete"
-                    onClick={this.props.deletePunch(this.state.pid)}/>
+                    onClick={e => this.props.deletePunch(this.state.pid)}/>
          </Card>
       );
    }

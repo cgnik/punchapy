@@ -25736,6 +25736,8 @@ var Punch = exports.Punch = function (_Component2) {
    _createClass(Punch, [{
       key: 'render',
       value: function render() {
+         var _this4 = this;
+
          return _react2.default.createElement(
             _reactMaterialize.Card,
             { className: 'Punch' },
@@ -25745,7 +25747,9 @@ var Punch = exports.Punch = function (_Component2) {
                this.state.date.toLocaleTimeString()
             ),
             _react2.default.createElement(_reactMaterialize.Button, { floating: true, className: 'blue', waves: 'light', icon: 'delete',
-               onClick: this.props.deletePunch(this.state.pid) })
+               onClick: function onClick(e) {
+                  return _this4.props.deletePunch(_this4.state.pid);
+               } })
          );
       }
    }]);
