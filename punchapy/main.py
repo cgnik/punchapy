@@ -4,12 +4,10 @@ from flask_pymongo import PyMongo
 from pymongo import ReturnDocument
 from uuid import uuid1
 
-from punchapy import MongoJSONEncoder
-
+url = environ.get('MONGO_HOST') or "localhost:27017"
 app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'punch'
-app.config['MONGO_URI'] = "mongodb://{}/punch".format(environ.get('MONGO_HOST') or "localhost:27017")
-app.json_encoder = MongoJSONEncoder
+app.config['MONGO_URI'] = "mongodb://{}/punch".format(url)
 
 mongo = PyMongo(app)
 
@@ -44,12 +42,9 @@ def punch_save():
 def punch_update(pid):
     punch_in = request.json
     if pid and punch_in:
-        return jsonify(mongo.db.punch.find_one_and_update(
-            {'pid': pid},
-            {"$set": punch_in},
-            upsert=True,
-            projection={"_id": False},
-            return_document=ReturnDocument.AFTER))
+        return jsonify(mongo.db.punch.find_one_and_update({'pid': pid}, {"$set": punch_in},
+                                                          upsert=True, projection={"_id": False},
+                                                          return_document=ReturnDocument.AFTER))
     abort(400)
 
 
