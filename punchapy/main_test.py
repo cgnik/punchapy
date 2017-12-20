@@ -25,3 +25,9 @@ def test_root():
     result = app.get('/').data.decode('utf-8')
     expected = get_file_data('index.html')
     assert result == expected
+
+@with_setup(setup_func, teardown_func)
+def test_root():
+    result = app.get('/').data.decode('utf-8')
+    expected = get_file_data('index.html')
+    assert result == expected
